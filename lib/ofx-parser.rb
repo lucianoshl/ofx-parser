@@ -55,6 +55,7 @@ module OfxParser
     #
     # Returns a DateTime object. Milliseconds (XXX) are ignored.
     def self.parse_datetime(date)
+      return nil if date.nil? || date.empty?
       DateTime.parse date
     end
 
