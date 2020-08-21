@@ -169,12 +169,20 @@ module OfxParser
       transaction.memo = (t/"MEMO").inner_text
       transaction.sic = (t/"SIC").inner_text
       transaction.check_number = (t/"CHECKNUM").inner_text unless (t/"CHECKNUM").inner_text.empty?
+      transaction.currency = build_transaction_currency(t) unless (t/"CURRENCY").inner_text.empty?
+
       transaction
     end
 
-
     def self.build_investment(doc)
 
+    end
+
+    def self.build_transaction_currency(doc)
+      status = Currency.new
+      status.rate = (doc/"CURRATE").inner_text
+      status.symbol = (doc/"CURSYM").inner_text
+      status
     end
 
     def self.build_status(doc)
